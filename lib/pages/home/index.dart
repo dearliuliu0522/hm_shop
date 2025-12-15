@@ -18,14 +18,17 @@ class _HomeViewState extends State<HomeView> {
     return [
       // 轮播图组件
       SliverToBoxAdapter(child: Hmslider()),
+      // 组件间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // SliverGrid和SliverList只能纵向排列
+      // 分类组件
       SliverToBoxAdapter(child: Hmcategary()),
+      // 组件间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 推荐
+      // 推荐组件
       SliverToBoxAdapter(child: Hmsuggestion()),
+      // 组件间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 爆款
+      // 爆款组件
       SliverToBoxAdapter(
         child: Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
@@ -39,7 +42,9 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
+      // 组件间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
+      // 商品列表组件
       Hmmorelist(),
     ];
   }
