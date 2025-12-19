@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Hmmorelist extends StatefulWidget {
-  Hmmorelist({Key? key}) : super(key: key);
+class HmMoreList extends StatefulWidget {
+  HmMoreList({Key? key}) : super(key: key);
 
   @override
-  _HmmorelistState createState() => _HmmorelistState();
+  _HmMoreListState createState() => _HmMoreListState();
 }
 
-class _HmmorelistState extends State<Hmmorelist> {
+class _HmMoreListState extends State<HmMoreList> {
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
@@ -23,10 +23,13 @@ class _HmmorelistState extends State<Hmmorelist> {
             right: index.isOdd ? 10 : 0,
           ),
           child: Container(
-            // margin: EdgeInsets.symmetric(horizontal: 10),
-            color: Colors.blue,
+            height: 100,
             alignment: Alignment.center,
-            child: Text("商品", style: TextStyle(color: Colors.white)),
+            color: Colors.blue,
+            child: Text(
+              "更多",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
           ),
         );
       },

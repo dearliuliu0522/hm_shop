@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:hm_shop/components/home/HmCategary.dart';
-import 'package:hm_shop/components/home/HmHot.dart';
-import 'package:hm_shop/components/home/HmMoreList.dart';
-import 'package:hm_shop/components/home/HmSlider.dart';
-import 'package:hm_shop/components/home/HmSuggestion.dart';
+import 'package:flutter/material.dart';
+import 'package:hm_shop/components/HmCategory/index.dart';
+import 'package:hm_shop/components/HmHot/index.dart';
+import 'package:hm_shop/components/HmMoreList/index.dart';
+import 'package:hm_shop/components/HmSlider/index.dart';
+import 'package:hm_shop/components/HmSuggestion/index.dart';
+import 'package:hm_shop/viewmodels/home.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
@@ -13,39 +14,52 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  // 获取滚动容器的内容
-  List<Widget> _getScrollChildren() {
+  final List<BannerItem> _bannerList = [
+    BannerItem(
+      id: '1',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/1.jpg',
+    ),
+    BannerItem(
+      id: '2',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/2.png',
+    ),
+    BannerItem(
+      id: '3',
+      imageUrl:
+          'https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg',
+    ),
+  ];
+
+  List<Widget> _getSlivers() {
     return [
-      // 轮播图组件
-      SliverToBoxAdapter(child: Hmslider()),
+      SliverToBoxAdapter(child: HmSlider(bannerList: _bannerList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // SliverGrid和SliverList只能纵向排列
-      SliverToBoxAdapter(child: Hmcategary()),
+      SliverToBoxAdapter(child: HmCategory()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 推荐
-      SliverToBoxAdapter(child: Hmsuggestion()),
+      SliverToBoxAdapter(child: HmSuggestion()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 爆款
       SliverToBoxAdapter(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: Hmhot()),
+              Expanded(child: HmHot()),
               SizedBox(width: 10),
-              Expanded(child: Hmhot()),
+              Expanded(child: HmHot()),
             ],
           ),
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      Hmmorelist(),
+      HmMoreList(),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScrollChildren());
+    return CustomScrollView(slivers: _getSlivers());
   }
 }

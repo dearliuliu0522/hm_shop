@@ -1,13 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Hmcategary extends StatefulWidget {
-  Hmcategary({Key? key}) : super(key: key);
+class HmCategory extends StatefulWidget {
+  HmCategory({Key? key}) : super(key: key);
 
   @override
-  _HmcategaryState createState() => _HmcategaryState();
+  _HmCategoryState createState() => _HmCategoryState();
 }
 
-class _HmcategaryState extends State<Hmcategary> {
+class _HmCategoryState extends State<HmCategory> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -17,11 +18,11 @@ class _HmcategaryState extends State<Hmcategary> {
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 10),
             width: 80,
             height: 100,
             color: Colors.blue,
+            alignment: Alignment.center,
             child: Text("分类${index}", style: TextStyle(color: Colors.white)),
           );
         },
