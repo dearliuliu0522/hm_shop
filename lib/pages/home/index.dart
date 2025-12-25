@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:hm_shop/components/home/HmCategary.dart';
-import 'package:hm_shop/components/home/HmHot.dart';
-import 'package:hm_shop/components/home/HmMoreList.dart';
-import 'package:hm_shop/components/home/HmSlider.dart';
-import 'package:hm_shop/components/home/HmSuggestion.dart';
+import 'package:flutter/material.dart';
+import 'package:hm_shop/api/home.dart';
+import 'package:hm_shop/components/HmCategory/index.dart';
+import 'package:hm_shop/components/HmHot/index.dart';
+import 'package:hm_shop/components/HmMoreList/index.dart';
+import 'package:hm_shop/components/HmSlider/index.dart';
+import 'package:hm_shop/components/HmSuggestion/index.dart';
+import 'package:hm_shop/viewmodels/home.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
@@ -13,44 +15,49 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  // 获取滚动容器的内容
-  List<Widget> _getScrollChildren() {
+  List<BannerItem> _bannerList = [];
+
+  List<Widget> _getSlivers() {
     return [
-      // 轮播图组件
-      SliverToBoxAdapter(child: Hmslider()),
-      // 组件间距
+      SliverToBoxAdapter(child: HmSlider(bannerList: _bannerList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 分类组件
-      SliverToBoxAdapter(child: Hmcategary()),
-      // 组件间距
+      SliverToBoxAdapter(child: HmCategory()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 推荐组件
-      SliverToBoxAdapter(child: Hmsuggestion()),
-      // 组件间距
+      SliverToBoxAdapter(child: HmSuggestion()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 爆款组件
       SliverToBoxAdapter(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: Hmhot()),
+              Expanded(child: HmHot()),
               SizedBox(width: 10),
-              Expanded(child: Hmhot()),
+              Expanded(child: HmHot()),
             ],
           ),
         ),
       ),
       // 组件间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      // 商品列表组件
-      Hmmorelist(),
+      HmMoreList(),
     ];
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getBannerList();
+  }
+
+  void _getBannerList() async {
+    _bannerList = await getBannerListAPI();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScrollChildren());
+    return CustomScrollView(slivers: _getSlivers());
   }
 }

@@ -8,52 +8,55 @@ class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainpageState createState() => _MainpageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  // 定义数据，根据数据渲染4个导航
-  final List<Map<String, String>> _tabList = [
+class _MainpageState extends State<MainPage> {
+  final List<Map<String, String>> _bottomNavItems = [
     {
-      "default": "lib/assets/ic_public_home_default.png",
-      "active": "lib/assets/ic_public_home_active.png",
-      "text": "首页",
+      "icon": "lib/assets/ic_public_home_default.png",
+      "active_icon": "lib/assets/ic_public_home_active.png",
+      "label": "首页",
     },
     {
-      "default": "lib/assets/ic_public_cate_default.png",
-      "active": "lib/assets/ic_public_cate_active.png",
-      "text": "分类",
+      "icon": "lib/assets/ic_public_cate_default.png",
+      "active_icon": "lib/assets/ic_public_cate_active.png",
+      "label": "分类",
     },
     {
-      "default": "lib/assets/ic_public_cart_default.png",
-      "active": "lib/assets/ic_public_cart_active.png",
-      "text": "购物车",
+      "icon": "lib/assets/ic_public_cart_default.png",
+      "active_icon": "lib/assets/ic_public_cart_active.png",
+      "label": "购物车",
     },
     {
-      "default": "lib/assets/ic_public_my_default.png",
-      "active": "lib/assets/ic_public_my_active.png",
-      "text": "我的",
+      "icon": "lib/assets/ic_public_my_default.png",
+      "active_icon": "lib/assets/ic_public_my_active.png",
+      "label": "我的",
     },
   ];
 
   int _currentIndex = 0;
 
   List<BottomNavigationBarItem> _getTabBarWidget() {
-    return List.generate(_tabList.length, (int index) {
+    return List.generate(_bottomNavItems.length, (int index) {
       return BottomNavigationBarItem(
-        icon: Image.asset(_tabList[index]["default"]!, width: 30, height: 30),
-        activeIcon: Image.asset(
-          _tabList[index]["active"]!,
+        icon: Image.asset(
+          _bottomNavItems[index]["icon"]!,
           width: 30,
           height: 30,
         ),
-        label: _tabList[index]["text"],
+        activeIcon: Image.asset(
+          _bottomNavItems[index]["active_icon"]!,
+          width: 30,
+          height: 30,
+        ),
+        label: _bottomNavItems[index]["label"]!,
       );
     });
   }
 
   List<Widget> _getChildren() {
-    return [HomeView(), CategaryView(), CartView(), MyView()];
+    return [HomeView(), CategoryView(), CartView(), MyView()];
   }
 
   @override
@@ -66,12 +69,15 @@ class _MainPageState extends State<MainPage> {
         items: _getTabBarWidget(),
         currentIndex: _currentIndex,
         onTap: (int index) {
-          _currentIndex = index;
-          setState(() {});
+          setState(() {
+            _currentIndex = index;
+          });
         },
+        // 禁用动画效果
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
       ),
     );
   }
