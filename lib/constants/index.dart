@@ -9,4 +9,5 @@ class GlobalConstants {
 
 class HttpConstants {
   static const String BANNER_URI = "/home/banner";
+  static const String CATEGORY_URI = "/home/category/head";
 }
